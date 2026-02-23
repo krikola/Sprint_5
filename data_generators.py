@@ -1,7 +1,7 @@
 from faker import Faker
 import random
 import string
-import time
+
 
 # Инициализация Faker
 fake = Faker(['ru_RU'])

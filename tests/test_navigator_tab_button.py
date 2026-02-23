@@ -1,42 +1,45 @@
 from selenium.webdriver.support import expected_conditions as EC
 from selenium.webdriver.support.ui import WebDriverWait
 from locators.locators import TestLocators
-import data
-import time 
+from data import Urls
 
-class Test_User_Navigation_To_Construction_And_Logo:
+class Test_Navigation_Tab:
 
-    def test_navigation_construction(self, driver_chrome):
+    #Соусы
+    def test_navigation_to_sauces(self, driver_chrome):
         driver = driver_chrome
-        driver.get(data.main_url)
+        driver.get(Urls.main_url)
+        wait = WebDriverWait(driver, 10)
+        
+        sauces_inactive = wait.until(EC.element_to_be_clickable(TestLocators.SAUCES_BUTTON))
+        sauces_inactive.click()
+        sauces_active = wait.until(EC.visibility_of_element_located(TestLocators.SAUCES_TAB))
+        assert 'current' in sauces_active.get_attribute('class')
+   
+    #Булки
+    def test_navigation_to_rolls(self, driver_chrome):
+        driver = driver_chrome
+        driver.get(Urls.main_url)
+        wait = WebDriverWait(driver, 10)
+        #Переход на вкладку "Соусы", для снятия активности с вкладки "Булки"
+        sauces_inactive = wait.until(EC.element_to_be_clickable(TestLocators.SAUCES_BUTTON))
+        sauces_inactive.click()
+        wait.until(EC.visibility_of_element_located(TestLocators.SAUCES_TAB))
+
+        rolls_inactive = wait.until(EC.element_to_be_clickable(TestLocators.ROLLS_BUTTON))
+        rolls_inactive.click()
+        rolls_active = wait.until(EC.visibility_of_element_located(TestLocators.ROLLS_TAB))
+        assert 'tab_tab_type_current__' in rolls_active.get_attribute('class')
+        
+     #Начинки
+    def test_navigation_to_topping(self, driver_chrome):
+        driver = driver_chrome
+        driver.get(Urls.main_url)
         wait = WebDriverWait(driver, 10)
 
-        #Ожидаем отклика и кликаем на кнопку "Войти в аккаунт" на главной странице 
-        wait.until(EC.element_to_be_clickable(TestLocators.BUTTON_LOGIN_IN_MAIN)).click()
-
-        #Ожидаем перехода на страницу входа
-        wait.until(EC.url_to_be(data.login_url))
-
-        #Входим в аккаунт
-        wait.until(EC.presence_of_element_located(TestLocators.EMAIL_INPUT)).send_keys(data.test_user_email)
-        wait.until(EC.presence_of_element_located(TestLocators.PASSWORD_INPUT)).send_keys(data.test_user_password)
-        wait.until(EC.element_to_be_clickable(TestLocators.LOGIN_BUTTON)).click()
-
-        #Ожидаем переход на главную страницу
-        wait.until(EC.url_to_be(data.main_url))
-
-        #Кликаем на кнопку "Соусы"
-        wait.until(EC.element_to_be_clickable(TestLocators.SAUCES_BUTTON)).click()
-        time.sleep(1.5)
-
-        #Кликаем на кнопку "Начинки"
-        wait.until(EC.element_to_be_clickable(TestLocators.TOPPINGS_BUTTON)).click()
-        time.sleep(1.5)
-
-        #Кликаем на кнопку "Булки"
-        wait.until(EC.element_to_be_clickable(TestLocators.ROLLS_BUTTON)).click()
-        time.sleep(1.5)
-
-        
+        topping_inactive = wait.until(EC.element_to_be_clickable(TestLocators.TOPPINGS_BUTTON))
+        topping_inactive.click()
+        topping_active = wait.until(EC.visibility_of_element_located(TestLocators.TOPPINGS_TAB))
+        assert 'current' in topping_active.get_attribute('class')
         
 

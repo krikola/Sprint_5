@@ -2,16 +2,15 @@ import pytest
 from selenium.webdriver.support import expected_conditions as EC
 from selenium.webdriver.support.ui import WebDriverWait
 from locators.locators import TestLocators
-import data
+from data import Urls
 from data_generators import generate_name, generate_login, generate_valid_password, generate_invalid_password
-import time
 
 class Test_User_Registration:
 
     # Регистрация с валидными данными
     def test_successful_registration(self, driver_chrome):
         driver = driver_chrome
-        driver.get(data.register_url)
+        driver.get(Urls.register_url)
         wait = WebDriverWait(driver, 10)
 
         # Вводим сгенерированное имя, email и корректный пароль и нажимаем кнопку "Зарегистрироваться"
@@ -26,7 +25,7 @@ class Test_User_Registration:
     # Ошибка при регистрации с некорректным паролем
     def test_registration_with_invalid_password(self, driver_chrome):
         driver = driver_chrome
-        driver.get(data.register_url)
+        driver.get(Urls.register_url)
         wait = WebDriverWait(driver, 10)
 
         # Вводим сгенерированное имя, email и некорректный пароль и нажимаем кнопку "Зарегистрироваться"
@@ -37,4 +36,3 @@ class Test_User_Registration:
 
         # Ожидаем появления сообщения об ошибке пароля
         assert wait.until(EC.presence_of_element_located(TestLocators.INCORRECTED_PASS)).is_displayed()
-        time.sleep(1.5)

@@ -18,8 +18,9 @@ class TestLocators:
     CONSTRUCTOR_BUTTON = (By.XPATH, "//a[.//p[normalize-space(text())='Конструктор']]")         #Кнопка конструктор в личном кабинете
     LOGO_BUTTON = (By.CSS_SELECTOR, 'a[href="/"]')                                              #Навигация для лого в личном кабинете
     CONSTRUCTOR_HEADER = (By.XPATH, ".//*[text()='Соберите бургер']")                           #Навигация для Заголовка "Соберите бургер"
-    ROLLS_BUTTON = (By.XPATH, '//span[text()="Соусы"]/..')                                      #Для таба «Булки»
-    SAUCES_BUTTON = (By.XPATH, '//span[text()="Начинки"]/..')                                   #Для таба «Соусы»
-    TOPPINGS_BUTTON = (By.XPATH, '//span[text()="Булки"]/..')                                   #Для таба «Начинки»
-
- 
+    ROLLS_BUTTON = (By.XPATH, '//span[text()="Булки"]/..')                                      #Локатор для вкладки «Булки»
+    SAUCES_BUTTON = (By.XPATH, '//span[text()="Соусы"]/..')                                     #Локатор для вкладки «Соусы»
+    TOPPINGS_BUTTON = (By.XPATH, '//span[text()="Начинки"]/..')                                 #Локатор для вкладки «Начинки»        #Для таба «Начинки»
+    ROLLS_TAB = (By.XPATH, "//div[contains(@class, 'tab_tab_type_current__2BEPc')]")            #Таб для булки
+    SAUCES_TAB = (By.XPATH, "//div[contains(@class, 'tab_tab__') and .//span[text()='Соусы']]") #Таб для Соусы
+    TOPPINGS_TAB = (By.XPATH, "//div[contains(@class, 'tab_tab__') and .//span[text()='Начинки']]") #Таб для Начинки
